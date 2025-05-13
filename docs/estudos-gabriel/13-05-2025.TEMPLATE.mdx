@@ -1,0 +1,95 @@
+---
+title: 13/05/2025 - SQL Injection (TEMPLATE)
+sidebar_position: 1
+---
+
+import Admonition from "@theme/Admonition";
+import QualityBar from "@site/src/components/QualityBar";
+
+<Admonition type="danger" title="Atenção!">
+	Esta página deve servir como **TEMPLATE** para outros estudos e
+	documentações de cibersegurança. Os conteúdos dessa página são meramente
+	exemplos, não devem ser utilizados como referência para estudos ou práticas
+	de segurança.
+</Admonition>
+
+# Estudos Realizados em 13/05/2025
+
+Dediquei meu tempo de estudo hoje para aprender e revisar tópicos relacionados a **SQL Injection**, como **Union SQLi**, **Blind SQLi** e **Error-based SQLi**.
+
+---
+
+## Anotações
+
+As anotações a seguir foram feitas durante a leitura de artigos e tutoriais sobre SQL Injection. Também documentei informações relevantes que talvez usarei novamente no documento ["SQL Injection - Fundamentos"](/docs/sql-injection.TEMPLATE).
+
+### SQL Injection
+
+SQL Injection é uma técnica de ataque que permite a um invasor interferir nas consultas que um aplicativo faz ao seu banco de dados. É uma das vulnerabilidades mais comuns e perigosas em aplicações web.
+
+#### Tipos de SQL Injection
+
+-   **Union SQLi**: Permite que o invasor combine os resultados de duas ou mais consultas SQL. Isso pode ser usado para extrair dados de tabelas diferentes.
+-   **Blind SQLi**: O invasor não recebe mensagens de erro, mas pode inferir informações sobre a estrutura do banco de dados com base nas respostas do aplicativo. Isso é feito fazendo perguntas verdadeiras ou falsas e observando o comportamento da aplicação.
+-   **Error-based SQLi**: O invasor provoca erros no banco de dados para obter informações sobre a estrutura do banco de dados. Isso pode incluir nomes de tabelas, colunas e outros detalhes.
+
+<Admonition type="note" title="Importante">
+	Esses tipos de SQL Injection são apenas alguns exemplos. Existem muitos
+	outros métodos e técnicas que os invasores podem usar para explorar
+	vulnerabilidades em aplicações web.
+</Admonition>
+
+### Writeup de Invasão
+
+Segue o "writeup" da maquina invadida no HackerClub, onde aprendi e pratiquei SQL Injection:
+
+#### Contexto
+
+A máquina "SQL Injection" foi projetada para ensinar os fundamentos de SQL Injection. O objetivo era explorar as vulnerabilidades da aplicação e obter acesso ao sistema. Ela serve um aplicativo web com uma página de login vulnerável a SQL Injection simples.
+
+#### Passos Realizados
+
+0. **Preparação**: Antes de começar, revisei os conceitos básicos de SQL Injection e como funcionam as injeções em aplicações web, além de configurar meu ambiente de invasão (Kali Linux, Burp Suite, ativar a VPN do HackerClub, etc.).
+1. **Reconhecimento**: Identifiquei a URL da aplicação (foi necessário alterar o arquivo `/etc/hosts` para acessar o site) e realizei um reconhecimento inicial para entender como a aplicação funcionava, usando a ferramenta de proxy do Burp Suite para capturar as requisições e entender como que o frontend se comunicava com o backend.
+2. **Teste de SQL Injection**: Iniciei os testes de SQL Injection na página de login, tentando injetar comandos SQL simples para ver se a aplicação era vulnerável. Usei o Burp Suite para modificar as requisições e testar diferentes payloads. Descobri que a aplicação era vulnerável a SQL Injection com a injeção de uma simples query que gerou um erro `500` e não `403`, o que indicava que a aplicação estava tentando executar um comando SQL inválido. A query injetada foi um simples `'`, o suficiente para gerar um erro.
+3. **Exploração**: Depois de confirmar a vulnerabilidade, comecei a explorar a aplicação para invadir a plataforma, usando a query `' OR 1=1 -- ` para contornar a autenticação. Isso me deu acesso ao painel administrativo da aplicação, onde havia a flag `HACKERCLUB{SQL_INJECTION}`.
+
+#### Screenshots
+
+<Admonition type="tip" title="Screenshots">
+	<img
+		src="/img/estudos-gustavo/img/sql-injection/1.png"
+		alt="SQL Injection 1"
+	/>
+	<br />
+	<img
+		src="/img/estudos-gustavo/img/sql-injection/2.png"
+		alt="SQL Injection 2"
+	/>
+	<br />
+	<img
+		src="/img/estudos-gustavo/img/sql-injection/3.png"
+		alt="SQL Injection 3"
+	/>
+</Admonition>
+
+---
+
+## Breakdown do Tempo Gasto
+
+### Tabela Horária
+
+| Atividade                      | Tempo Gasto |
+| ------------------------------ | ----------- |
+| Leitura de Artigos e Tutoriais | 30 minutos  |
+| Prática em Laboratório         | 1 hora      |
+| Invasao de Maquina             | 1 hora      |
+| **TOTAL**                      | 2.5 horas   |
+
+### Qualidade do Estudo
+
+Esta sessão de estudos foi focada em aprender e praticar SQL Injection. A qualidade do estudo foi alta, porém, ainda há espaço para melhorias. A prática em laboratório foi particularmente útil para entender como funcionam os ataques e como mitigá-los, mas sinto que a leitura de artigos poderia ter sido mais aprofundada, mesmo eu preferindo a prática.
+
+<QualityBar quality={4} />
+
+---

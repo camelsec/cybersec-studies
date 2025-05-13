@@ -1,0 +1,23 @@
+---
+title: SQL Injection (TEMPLATE)
+sidebar_position: 1
+---
+
+import Admonition from "@theme/Admonition";
+
+<Admonition type="danger" title="Atenção!">
+	Esta página deve servir como **TEMPLATE** para outros estudos e
+	documentações de cibersegurança. Os conteúdos dessa página são meramente
+	exemplos, não devem ser utilizados como referência para estudos ou práticas
+	de segurança.
+</Admonition>
+
+# SQL Injection
+
+Esta página contém informações uteis sobre SQL Injection, um tipo de ataque que permite a um invasor interferir nas consultas que um aplicativo faz ao seu banco de dados. Esse tipo de ataque pode permitir que o invasor visualize dados que normalmente não teria permissão para acessar, como dados confidenciais ou informações pessoais.
+
+## Queries comuns
+
+| Query          | Descrição                                                                                                   |
+| -------------- | ----------------------------------------------------------------------------------------------------------- |
+| `' OR 1=1 -- ` | Efetivamente garante que uma query SQL vai retornar TRUE e transforma o restante da linha em um comentário. |
