@@ -1,0 +1,66 @@
+---
+title: 15/05/2025 - Software House (Training machine)
+sidebar_position: 2
+---
+
+import Admonition from "@theme/Admonition";
+import QualityBar from "@site/src/components/QualityBar";
+
+
+
+# Estudos Realizados em 15/05/2025
+
+Eu comecei um laboratório que aborda Blind SQL Injection, e o que da pra fazer com isso.
+
+---
+
+## Anotações
+
+Segue um report do Lab.
+
+
+### Writeup de Invasão
+
+Segue o "writeup" da maquina invadida no HackerClub, onde aprendi e pratiquei SQL Injection:
+
+#### Contexto
+
+A máquina "Software House" é uma máquina vulnerável a Blind SQL Injection, e na descrição do lab, foi fito que é possível fazer upload de uma webshell. 
+
+#### Passos Realizados
+
+0. **Descoberta**: Diferente do comum, essa vulnerabilidade estava em um formu de registro de usuário. Se eu usasse a payload `admin'` eu tinha um erro 500. Porém eu não tinha nenhuma mensagem de erro, ou seja, era um Blind SQL Injection.
+1. **Exploração**: Eu tentei explorar de várias formas, mas se as reqs não davam um erro, davam o código 302, o que atrapalhava a exploração. Então eu usei o `sqlmap` para fazer a exploração, e ele conseguiu fazer a injeção. Eu tentei ver se não tinha mais nada na base de dados, mas era só isso mesmo, isso já me dava a confiração de que eu poderia fazer o upload. Outra coisa que eu fiz pra descobrir onde eu deveria fazer o upload, foi ver a página info.php, que me mostrava a raíz do servidor. Essa página foi descoberta com script de nmap. 
+2. **Upload de Webshell**: Eu fiz o upload de uma webshell, e consegui acessar ela. A partir daí, eu tinha acesso ao servidor.
+3. **Escalação de Privilégios**: Eu fiz a escalação de privilégios (tive que ver o writeup, porque nenhum dos scripts que eu tentei estavam funcionando por um erro no binário). Era possível ver que tinha um script sendo executado, onde o usuário root se movia para a pasta de imagens, e fazia backup da s imagens usando o tar com a opção de wildcard. Tem uma vulnerabilidade de wildcard que foi explorada pra executar uma shell como root na pasta das imagens (imagem que o root estava se movendo). E então eu consegui pegar a flag de root.
+
+
+
+#### Screenshots
+
+<Admonition type="tip" title="Screenshots">
+
+	<br />
+	![Descrição da imagem](/img/sft-house-1.png)
+	Descoberta da vulnerabilidade de SQL Injection no formulário de registro de usuário. Pelo próprio sqlma eu fiz o upload da webshell.
+	<br />
+</Admonition>
+
+---
+
+## Breakdown do Tempo Gasto
+
+### Tabela Horária
+
+| Atividade                      | Tempo Gasto |
+| ------------------------------ | ----------- |
+| Fazendo o lab                 |   3h 30min  |
+| **TOTAL**                      |   3h 30min  |
+
+### Qualidade do Estudo
+
+Achei que foi muito bom, tirando a parte onde eu tive que olhar o writeup pra fazer a escalação de privilégio, porque os scripts pra ver os vetores de priv esc não funcionavam.
+
+<QualityBar quality={4} />
+
+---
